@@ -1,0 +1,32 @@
+{
+    "name": "lemo0037/php-crud-music",
+    "description": "Développement d'une application Web de consultation et modification de morceaux de musique",
+    "type": "project",
+    "license": "Copyleft",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lemont Gaétan",
+            "email": "gaetanl2004@gmail.com"
+        }
+    ],
+    "require": {
+      "ext-pdo": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.8"
+    },
+    "scripts": {
+        "run-server": [
+          "APP_DIR=\"$PWD\" php -d display_errors -S localhost:8000 -t public/ -d auto_prepend_file=\"$PWD/vendor/autoload.php\"",
+          "Composer\\Config::disableProcessTimeout",
+          "phpunit"
+        ],
+        "test:cs": "php vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "fix:cs" : "php vendor/bin/php-cs-fixer fix"
+    }
+}
