@@ -25,6 +25,10 @@ $artistName->execute([$artistId]);
 
 $name = $artistName->fetch();
 
+if(($name == false)){
+    http_response_code(404);
+    exit;
+}
 
 $webpage = new Html\WebPage("Albums de {$name['name']}");
 $webpage->appendContent("<h1>Albums de {$name['name']}</h1>");
@@ -45,6 +49,7 @@ foreach ($stmt as $ligne) {
         "<p>{$ligne['year']} {$webpage->escapeString($ligne['name'])}\n</p>"
     );
 }
+
 
 echo $webpage->toHtml();
 

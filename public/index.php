@@ -24,7 +24,7 @@ $stmt->execute();
 
 while (($ligne = $stmt->fetch()) !== false) {
     $webpage->appendContent(
-        "<p>{$webpage->escapeString($ligne['name'])}\n</p>"
+        "<p><a href='http://localhost:8000/artist.php?artistId={$ligne['id']}'>{$webpage->escapeString($ligne['name'])}</a></p>\n"
     );
 }
 
