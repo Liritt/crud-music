@@ -7,7 +7,7 @@ require_once '../vendor/autoload.php';
 use Database\MyPdo;
 
 $artistId = $_GET['artistId'];
-if ((!is_numeric($artistId))){
+if ((!is_numeric($artistId))) {
     header('Location: index.php');
     exit;
 }
@@ -25,7 +25,7 @@ $artistName->execute([$artistId]);
 
 $name = $artistName->fetch();
 
-if(($name == false)){
+if (($name == false)) {
     http_response_code(404);
     exit;
 }
@@ -52,4 +52,3 @@ foreach ($stmt as $ligne) {
 
 
 echo $webpage->toHtml();
-

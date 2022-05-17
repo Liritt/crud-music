@@ -8,6 +8,11 @@
             "": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Lemont Gaétan",
@@ -31,6 +36,12 @@
           "phpunit"
         ],
         "test:cs": "php vendor/bin/php-cs-fixer fix --dry-run --diff",
-        "fix:cs" : "php vendor/bin/php-cs-fixer fix"
+        "fix:cs" : "php vendor/bin/php-cs-fixer fix",
+        "test:crud": "php vendor/bin/codecept run Crud",
+        "test:codecept": "php vendor/bin/codecept run",
+        "test": [
+            "@test:cs",
+            "@test:codecept"
+        ]
     }
 }

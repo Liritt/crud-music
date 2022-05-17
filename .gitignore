@@ -1,3 +1,4 @@
 /vendor/
 /.idea/
-
+tests/musiclite.sqlite
+tests/musiclite.sqlite_snapshot

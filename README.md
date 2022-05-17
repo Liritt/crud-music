@@ -57,7 +57,11 @@ composer run-script run-server
 ```
 Et voilà ! Notre serveur web se lance désormais d'une manière différente d'avant.
 
+---
+
 ### __Ajout d'une connection automatique__
+
+---
 On nous demande de créer une fichier .mypdo.ini afin de mettre les informations de connexion à l'intérieur. Il suffiait d'écrire 
 ```sql
 [mypdo]
@@ -67,3 +71,15 @@ password = web
 ```
 et de supprimer la commande qui faisait cela dans le fichier index.php ainsi que ajouter APP_DIR=\"$PWD\" devant php -d display_errors -S localhost:8000 -t public/ et le tour est joué !
 
+---
+
+### __Tests__
+
+---
+Afin de rendre la vie du développeur plus facile, nous avons rajouté des tests à effectuer afin de savoir si oui ou non notre code possède des erreurs.
+Un par un, voici leur utilité :
+- test:cs : vérifie que les fichiers soient de la norme psr-4
+- fix:cs : corrige les erreurs trouvées à l'aide de test:cs
+- test:crud : permet de vérifier les fichiers crud
+- test:codecept : vérifie si les fichiers du projet ont des erreurs
+- test : utilise test:cs et test:codecept simultanément pour à la fois vérifier s'il y a des non-respect de la norme et si le code fonctionne correctement.
