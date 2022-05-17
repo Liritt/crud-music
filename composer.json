@@ -18,7 +18,11 @@
       "ext-pdo": "*"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.8"
+        "friendsofphp/php-cs-fixer": "^3.8",
+        "codeception/codeception": "^4.1",
+        "codeception/module-phpbrowser": "^1",
+        "codeception/module-asserts": "^1",
+        "codeception/module-db": "^1"
     },
     "scripts": {
         "run-server": [
