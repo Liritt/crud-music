@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Entity;
 
+use Database\MyPdo;
+use Entity\Exception\EntityNotFoundException;
+use PDO;
+use PHPUnit\Runner\AfterRiskyTestHook;
+
 class Artist
 {
     private int $id;
@@ -23,5 +28,32 @@ class Artist
     public function getId(): int
     {
         return $this->id;
+    }
+
+
+    public static function findById(int $id): Artist
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<'SQL'
+            SELECT *
+            FROM Artiste
+            WHERE id = ?
+SQL
+        );
+
+        $stmt->execute([$id]);
+
+        if (!$artist = $stmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Artist::class)) {
+            throw new EntityNotFoundException("Aucun artiste n'est associé à cette id");
+        }
+
+        return $artist[0];
+    }
+
+    /**
+     * @return Album[]
+     */
+    public function getAlbums() : array
+    {
     }
 }
