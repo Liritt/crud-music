@@ -5,6 +5,8 @@ declare(strict_types=1);
 require_once '../vendor/autoload.php';
 
 use Database\MyPdo;
+use Entity\Artist;
+use Entity\Album;
 
 $artistId = $_GET['artistId'];
 if ((!is_numeric($artistId))) {
@@ -12,43 +14,19 @@ if ((!is_numeric($artistId))) {
     exit;
 }
 
-$artistName = MyPDO::getInstance()->prepare(
-    <<<'SQL'
-    SELECT name
-    FROM artist
-    WHERE id = ?
-SQL
-);
+$artiste = Artist::findById((int)$artistId);
 
-$artistName->execute([$artistId]);
+$artistName = $artiste->getName();
 
+$artistAlbums = $artiste->getAlbums();
 
-$name = $artistName->fetch();
+$webpage = new Html\AppWebPage("Albums de {$artistName}");
 
-if (($name == false)) {
-    http_response_code(404);
-    exit;
-}
-
-$webpage = new Html\WebPage("Albums de {$name['name']}");
-$webpage->appendContent("<h1>Albums de {$name['name']}</h1>");
-
-$stmt = MyPDO::getInstance()->prepare(
-    <<<'SQL'
-    SELECT year, name 
-    FROM album
-    WHERE artistId = ?
-    ORDER BY year DESC, name
-SQL
-);
-
-$stmt->execute([$artistId]);
-
-foreach ($stmt as $ligne) {
+$webpage->appendContent("<ul>");
+foreach ($artistAlbums as $album) {
     $webpage->appendContent(
-        "<p>{$ligne['year']} {$webpage->escapeString($ligne['name'])}\n</p>"
+        "<li>{$album->getYear()} {$webpage->escapeString($album->getName())}</li>\n"
     );
 }
-
-
+$webpage->appendContent("</ul>");
 echo $webpage->toHtml();

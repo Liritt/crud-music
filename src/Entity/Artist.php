@@ -7,6 +7,7 @@ namespace Entity;
 use Database\MyPdo;
 use Entity\Exception\EntityNotFoundException;
 use PDO;
+use Entity\Collection\AlbumCollection;
 use PHPUnit\Runner\AfterRiskyTestHook;
 
 class Artist
@@ -36,7 +37,7 @@ class Artist
         $stmt = MyPdo::getInstance()->prepare(
             <<<'SQL'
             SELECT *
-            FROM Artiste
+            FROM artist
             WHERE id = ?
 SQL
         );
@@ -53,7 +54,10 @@ SQL
     /**
      * @return Album[]
      */
-    public function getAlbums() : array
+    public function getAlbums(): array
     {
+        $id = $this->getId();
+        $albums = AlbumCollection::findByArtistId($id);
+        return $albums;
     }
 }

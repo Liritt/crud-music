@@ -1,0 +1,29 @@
+html, body{
+    height: 100%;
+}
+
+body {
+    display: flex;
+    margin: 5px;
+    box-sizing: border-box;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.header, .content, .footer {
+    border: 2px solid black;
+    gap: 5px;
+}
+
+h1
+{
+    text-align: center;
+}
+
+ul li{
+    font-family: monospace;
+    list-style-type: square;
+    padding-bottom: 5px;
+}
+
+
