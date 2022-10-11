@@ -1,5 +1,4 @@
 <?php
-
 namespace Tests;
 
 /**
@@ -17,9 +16,9 @@ namespace Tests;
  *
  * @SuppressWarnings(PHPMD)
 */
-class BrowseTester extends \Codeception\Actor
+class FormTester extends \Codeception\Actor
 {
-    use _generated\BrowseTesterActions;
+    use _generated\FormTesterActions;
 
     /**
      * Define custom actions here

@@ -1,32 +1,59 @@
 <?php
 
-declare(strict_types=1);
-
-require_once '../vendor/autoload.php';
-
 use Database\MyPdo;
 use Entity\Artist;
-use Entity\Album;
+use Entity\Exception\EntityNotFoundException;
+use Html\AppWebPage;
 
 $artistId = $_GET['artistId'];
-if ((!is_numeric($artistId))) {
-    header('Location: index.php');
-    exit;
+
+if (!isset($_GET['artistId']) || !ctype_digit($_GET['artistId'])) {
+    http_response_code(302);
+    header("Location: /index.php");
+    exit(0);
 }
 
-$artiste = Artist::findById((int)$artistId);
-
-$artistName = $artiste->getName();
-
-$artistAlbums = $artiste->getAlbums();
-
-$webpage = new Html\AppWebPage("Albums de {$artistName}");
-
-$webpage->appendContent("<ul>");
-foreach ($artistAlbums as $album) {
-    $webpage->appendContent(
-        "<li>{$album->getYear()} {$webpage->escapeString($album->getName())}</li>\n"
-    );
+try {
+    $artist = Artist::findById((int) $_GET['artistId']);
+} catch (EntityNotFoundException) {
+    http_response_code(404);
+    exit(0);
 }
-$webpage->appendContent("</ul>");
+
+$artistName = AppWebPage::escapeString($artist->getName());
+
+$webpage = new AppWebPage("Albums de {$artistName}");
+
+$albums = $artist->getAlbums();
+
+$albumsHTML = '';
+
+$webpage->appendContent(
+    <<<HTML
+      <div id='menu'>
+        <input type="button" name="modif" value="Modifier" onclick="self.location.href='/admin/artist-form.php?artistId={$artistId}'">
+        <input type="button" name="suppr" value="Supprimer" onclick="self.location.href='/admin/artist-delete.php?artistId={$artistId}'">
+      </div> 
+HTML
+);
+
+
+foreach ($artist->getAlbums() as $album) {
+    $escapedName = AppWebPage::escapeString($album->getName());
+
+
+    $albumsHTML .= <<<HTML
+    <div class="album">
+        <img class="album__cover" src="/cover.php?coverId={$album->getCoverId()}" alt="Pochette d'album">
+        <div class="album_informations">
+            <p class="album__year">{$album->getYear()}</p>
+            <p class="album__name">{$escapedName}</p>
+        </div>
+    </div>
+    HTML;
+}
+                                //class='list grid'
+$webpage->appendContent("<div class='list'>{$albumsHTML}</div>");
+
+
 echo $webpage->toHtml();

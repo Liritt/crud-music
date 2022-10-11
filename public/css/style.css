@@ -1,29 +1,103 @@
 html, body{
     height: 100%;
-}
+    width: 100%;
+    margin: 0;
 
-body {
-    display: flex;
-    margin: 5px;
     box-sizing: border-box;
+    background-color: #dea7de;
+}
+
+body{
+    display: flex;
     flex-direction: column;
-    gap: 5px;
+    flex-grow: 1;
 }
 
-.header, .content, .footer {
-    border: 2px solid black;
-    gap: 5px;
-}
-
-h1
-{
+h1{
     text-align: center;
 }
 
-ul li{
-    font-family: monospace;
-    list-style-type: square;
-    padding-bottom: 5px;
+.content, .header, .footer{
+    margin: 5px;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: rgba(210, 155, 210, 0.9);
 }
 
+.list{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+    font-size: 20px;
+}
 
+.grid{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.list .album{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    gap: 5px;
+    align-items: center;
+}
+
+.grid .album{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 5px;
+    align-items: flex-start;
+    width: 200px;
+}
+
+.grid .album .album_informations{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.grid .album .album_informations .album__name{
+    display: flex;
+    align-items: center;
+}
+
+.album__year{
+    font-size: 25px;
+}
+
+.album__name{
+    font-size: 20px;
+}
+
+.footer{
+    display: flex;
+    flex-grow: 1;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 25px;
+}
+
+#menu{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+input{
+    padding: 10px;
+    border-radius: 0;
+    font-size: 25px;
+}

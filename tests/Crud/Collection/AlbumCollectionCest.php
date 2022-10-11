@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Collection;
+namespace Tests\Crud\Collection;
 
 use Entity\Album;
 use Entity\Collection\AlbumCollection;

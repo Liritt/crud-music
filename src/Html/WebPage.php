@@ -6,6 +6,7 @@ namespace Html;
 
 class WebPage
 {
+    use StringEscaper;
     /**
      * @var string
      */
@@ -144,8 +145,4 @@ class WebPage
      * @param string $string
      * @return string
      */
-    public static function escapeString(string $string): string
-    {
-        return htmlspecialchars($string, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5);
-    }
 }

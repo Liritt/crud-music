@@ -16,17 +16,17 @@ class AlbumCollection
      */
     public static function findByArtistId(int $artistId): array
     {
-        $stmt = MyPdo::getInstance()->prepare(
+        $albums = MyPDO::getInstance()->prepare(
             <<<'SQL'
-                SELECT * 
-                FROM album
-                WHERE artistId = ?
-                ORDER BY year DESC, name
+            SELECT *
+            FROM album
+            WHERE artistId = ?
+            ORDER BY year DESC, name
 SQL
         );
 
-        $stmt->execute([$artistId]);
+        $albums->execute([$artistId]);
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, Album::class);
+        return $albums->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Album::class);
     }
 }

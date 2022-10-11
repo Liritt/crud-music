@@ -1,47 +1,71 @@
 {
-    "name": "lemo0037/php-crud-music",
-    "description": "Développement d'une application Web de consultation et modification de morceaux de musique",
-    "type": "project",
-    "license": "Copyleft",
-    "autoload": {
-        "psr-4": {
-            "": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Lemont Gaétan",
-            "email": "gaetanl2004@gmail.com"
-        }
-    ],
-    "require": {
-      "ext-pdo": "*"
-    },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.8",
-        "codeception/codeception": "^4.1",
-        "codeception/module-phpbrowser": "^1",
-        "codeception/module-asserts": "^1",
-        "codeception/module-db": "^1"
-    },
-    "scripts": {
-        "run-server": [
-          "APP_DIR=\"$PWD\" php -d display_errors -S localhost:8000 -t public/ -d auto_prepend_file=\"$PWD/vendor/autoload.php\"",
-          "Composer\\Config::disableProcessTimeout",
-          "phpunit"
-        ],
-        "test:cs": "php vendor/bin/php-cs-fixer fix --dry-run --diff",
-        "fix:cs" : "php vendor/bin/php-cs-fixer fix",
-        "test:crud": "php vendor/bin/codecept run Crud",
-        "test:codecept": "php vendor/bin/codecept run",
-        "test": [
-            "@test:cs",
-            "@test:codecept"
-        ]
+  "name": "lemont/crud-music",
+  "description": "Dev d'une appli de consultation et modif de morceaux du musique",
+  "type": "project",
+  "license": "Copyleft",
+  "autoload": {
+    "psr-4": {
+      "": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    }
+  },
+  "authors": [
+    {
+      "name": "Gaétan Lemont",
+      "email": "gaetan.lemont@etudiant.univ-reims.fr"
+    }
+  ],
+  "require": {
+    "ext-pdo": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.8",
+    "codeception/codeception": "^4.1",
+    "codeception/module-phpbrowser": "^1",
+    "codeception/module-asserts": "^1",
+    "codeception/module-db": "^1",
+    "ext-dom": "*",
+    "ext-libxml": "*"
+  },
+  "scripts": {
+    "start:linux": [
+      "Composer\\Config::disableProcessTimeout",
+      "bin/run-server.sh"
+    ],
+    "start:windows": [
+      "Composer\\Config::disableProcessTimeout",
+      "bin/run-server.bat"
+    ],
+    "start": [
+      "@start:linux"
+    ],
+    "test:cs": [
+      "php vendor/bin/php-cs-fixer fix --dry-run --diff"
+    ],
+    "fix:cs": [
+      "php vendor/bin/php-cs-fixer fix"
+    ],
+    "test:crud": [
+      "php vendor/bin/codecept run Crud"
+    ],
+    "test:codecept": [
+      "php vendor/bin/codecept run"
+    ],
+    "test:browse": [
+      "php vendor/bin/codecept run Browse"
+    ],
+    "test:form": [
+      "php vendor/bin/codecept run Form"
+    ],
+    "test": [
+      "@test:codecept",
+      "@test:cs",
+      "@test:browse",
+      "@test:form"
+    ]
+  }
 }
